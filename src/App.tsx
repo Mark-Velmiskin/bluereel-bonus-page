@@ -8,6 +8,7 @@ export default function App() {
   const heroCtaRef = useRef<HTMLButtonElement>(null)
   const depositsRef = useRef<HTMLElement>(null)
   const faqRef = useRef<HTMLElement>(null)
+  const daysRef = useRef<HTMLDivElement>(null)
 
   const [solidHeader, setSolidHeader] = useState(false)
   const [showBottomCta, setShowBottomCta] = useState(false)
@@ -35,6 +36,39 @@ export default function App() {
     })
     io.observe(target)
     return () => io.disconnect()
+  }, [])
+
+  // Daily strip: when it first comes into view, glide to Day 7 and back to hint that it scrolls.
+  // Stops as soon as the user touches the strip.
+  useEffect(() => {
+    const strip = daysRef.current
+    if (!strip || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    let cancelled = false
+    const timers: number[] = []
+    const stop = () => { cancelled = true; timers.forEach(clearTimeout) }
+    strip.addEventListener('pointerdown', stop, { once: true })
+    strip.addEventListener('wheel', stop, { once: true })
+    const glide = (to: number, ms: number) => {
+      const from = strip.scrollLeft
+      const start = performance.now()
+      const step = (now: number) => {
+        if (cancelled) return
+        const t = Math.min(1, (now - start) / ms)
+        const ease = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2
+        strip.scrollLeft = from + (to - from) * ease
+        if (t < 1) requestAnimationFrame(step)
+      }
+      requestAnimationFrame(step)
+    }
+    const io = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return
+      io.disconnect()
+      const max = strip.scrollWidth - strip.clientWidth
+      timers.push(window.setTimeout(() => glide(max, 1400), 300))
+      timers.push(window.setTimeout(() => glide(0, 1200), 2300))
+    }, { root: screenRef.current, threshold: 0.9 })
+    io.observe(strip)
+    return () => { stop(); io.disconnect() }
   }, [])
 
   useEffect(() => {
@@ -118,7 +152,7 @@ export default function App() {
             <article className="bonus-card">
               <h3 className="t-h2 bonus-card__title--brand">Daily Bonus</h3>
               <p className="bonus-card__desc t-body-sm">Log in daily, win cash and free spins (FS).</p>
-              <div className="days" role="list">
+              <div className="days" role="list" ref={daysRef}>
                 {days.map((d, i) => (
                   <div key={d.day} role="listitem" className={`day ${i === 0 ? 'day--active' : ''}`}>
                     <span className="t-label">{d.day}</span>

@@ -234,17 +234,19 @@ img { display: block; }
 /* ---------- Bonus cards ---------- */
 .bonus-card {
   position: relative; overflow: hidden;
-  padding: 24px 16px 16px; border-radius: var(--radius-lg);
+  padding: 20px; border-radius: var(--radius-lg);
   background: var(--color-bg-surface);
 }
 .bonus-card__title--brand { color: var(--color-text-brand); }
 .bonus-card__title--promo { color: var(--color-text-promo); }
 .bonus-card__desc { margin-top: 4px; }
 .bonus-card .btn { margin-top: 24px; }
-.days { display: flex; gap: 8px; margin: 20px -16px 0; padding: 0 16px; overflow-x: auto; scrollbar-width: none; }
+/* From Figma: strip 303px wide inside 20px card padding, tiles 56×80, gap 2px */
+.days { display: flex; gap: 2px; margin-top: 20px; overflow-x: auto; scrollbar-width: none; border-radius: 28px; }
 .days::-webkit-scrollbar { display: none; }
 .day {
-  flex: 0 0 56px; height: 88px; padding: 10px 8px 8px; border-radius: var(--radius-full);
+  flex: 0 0 56px; height: 80px; padding: 10px 8px 8px; border-radius: var(--radius-full);
+  transition: background 0.3s ease, color 0.3s ease;
   display: flex; flex-direction: column; align-items: center; justify-content: space-between;
   background: var(--color-bg-page); color: var(--color-text-disabled);
 }
