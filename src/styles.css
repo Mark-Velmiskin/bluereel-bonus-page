@@ -81,7 +81,7 @@ img { display: block; }
   height: 100%;
   overflow: hidden;
   overflow: clip;
-  background: var(--color-bg-page);
+  background: var(--color-border-default); /* #E2E1E8 — canvas behind the light section plates */
 }
 @media (min-width: 520px) {
   body { display: grid; place-items: center; padding: 24px; }
@@ -208,10 +208,10 @@ img { display: block; }
   position: relative;
   margin-top: -24px;
   padding: 40px 16px 32px;
-  background: var(--color-bg-page);
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  background: var(--color-bg-page); /* #F7F6FB plate */
+  border-radius: var(--radius-xl);
 }
-.section + .section { margin-top: 8px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; box-shadow: 0 -1px 0 rgba(0,0,0,0.03); }
+.section + .section { margin-top: 8px; }
 .section__head { text-align: center; margin-bottom: 32px; }
 .section__head p { margin-top: 4px; color: var(--color-text-primary); }
 .stack { display: flex; flex-direction: column; gap: 8px; }
