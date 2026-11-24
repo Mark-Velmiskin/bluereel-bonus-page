@@ -83,9 +83,7 @@ export function PromoSheet({ onClose, onApplied, onSignUp }: Props) {
           </label>
           <div id="promo-helper" aria-live="polite">
             {status === 'error' && <p className="field__helper field__helper--error">This code isn’t valid or has expired</p>}
-            {status === 'success' && <p className="field__helper field__helper--success">Code accepted: +50 free spins after sign-up</p>}
-            {status === 'idle' && !code && <p className="field__helper" style={{ color: 'var(--color-text-tertiary)' }}>Try {VALID_PROMO}</p>}
-          </div>
+            {status === 'success' && <p className="field__helper field__helper--success">Code accepted: +50 free spins after sign-up</p>}          </div>
         </div>
 
         {status === 'success' ? (
