@@ -255,7 +255,11 @@ img { display: block; }
   background: var(--color-bg-surface); color: var(--color-text-primary);
   font-size: 12px; font-weight: 500;
 }
-.wheel-card__img { position: absolute; right: -60px; top: -18px; width: 210px; pointer-events: none; animation: spin 24s linear infinite; }
+/* Position from Figma: the exported image already includes the 105° rotation; bounding box 265.6px at (226, -96) of the card */
+.wheel-card__img {
+  position: absolute; left: 226px; top: -96px; width: 266px; height: 266px;
+  pointer-events: none;
+}
 .wheel-card .chips { margin-top: 20px; max-width: 220px; }
 .wheel-card__title { max-width: 220px; }
 @keyframes spin { to { transform: rotate(360deg); } }
