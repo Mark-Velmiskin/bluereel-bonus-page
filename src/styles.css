@@ -90,6 +90,7 @@ img { display: block; }
     inset: auto;
     width: 375px;
     height: min(812px, calc(100vh - 48px));
+    border-radius: var(--radius-xl);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
   }
 }
