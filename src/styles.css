@@ -179,8 +179,8 @@ img { display: block; }
 .hero {
   display: flex; flex-direction: column; align-items: center;
   min-height: calc(var(--device-h) + 24px);
-  /* bottom: 32px gap under “See how it works” + 24px hidden under the next section */
-  padding: var(--header-h) 16px calc(32px + 24px);
+  /* bottom: 56px gap under “See how it works” + 24px hidden under the next section */
+  padding: var(--header-h) 16px calc(56px + 24px);
   background: var(--gradient-brand);
   color: var(--color-text-on-brand);
   text-align: center;
@@ -188,7 +188,7 @@ img { display: block; }
 .hero__cta { margin-top: auto; }
 .hero {
   /* Gift size follows the screen height: 375px at 812 (as in Figma), smaller on shorter screens */
-  --hero-img: clamp(170px, calc((var(--device-h) - 421px) / 0.81), 375px);
+  --hero-img: clamp(170px, calc((var(--device-h) - 445px) / 0.81), 375px);
 }
 .hero__img {
   flex: 0 0 auto; width: var(--hero-img); max-width: none; height: var(--hero-img);
@@ -372,6 +372,78 @@ img { display: block; }
 .field__helper--error { color: var(--color-text-error); }
 .field__helper--success { color: var(--color-text-success); }
 .spinner { width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(0,0,0,0.15); border-top-color: #000; animation: spin 0.8s linear infinite; }
+
+/* ================= Motion & hover effects ================= */
+/* Hero: words rise one after another, amounts count up like a slot reel */
+.hero__title .word { display: inline-block; animation: rise-in 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.rise { animation: rise-in 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.count-up { font-variant-numeric: tabular-nums; }
+@keyframes rise-in { from { opacity: 0; transform: translateY(18px); filter: blur(4px); } }
+
+/* Sections and cards fade up as they scroll into view */
+[data-reveal] { opacity: 0; translate: 0 20px; transition: opacity 0.5s ease, translate 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
+[data-reveal].is-in { opacity: 1; translate: 0 0; }
+.stack > [data-reveal]:nth-child(2) { transition-delay: 60ms; }
+.stack > [data-reveal]:nth-child(3) { transition-delay: 120ms; }
+.stack > [data-reveal]:nth-child(4) { transition-delay: 180ms; }
+
+/* Primary CTA: light sweep every few seconds */
+.btn--shine { position: relative; overflow: hidden; isolation: isolate; }
+.btn--shine::after {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, 0.65) 50%, transparent 65%);
+  transform: translateX(-120%); animation: shine 3.6s ease-in-out 1.2s infinite;
+}
+@keyframes shine { 0% { transform: translateX(-120%); } 35%, 100% { transform: translateX(120%); } }
+
+/* Cards: lift, slight tilt and a spotlight that follows the pointer (desktop) */
+.fx-card {
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.25s ease, box-shadow 0.3s ease;
+}
+.fx-card::after {
+  content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(30, 122, 255, 0.08), transparent 60%);
+  opacity: 0; transition: opacity 0.3s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .fx-card:hover { box-shadow: 0 14px 32px rgba(36, 42, 90, 0.10); }
+  .fx-card:hover::after { opacity: 1; }
+  .day { transition: transform 0.2s ease, background 0.3s ease, color 0.3s ease; }
+  .day:hover { transform: translateY(-3px); }
+  .faq__q:hover .faq__toggle { transform: scale(1.12); }
+  .chip { transition: background 0.2s ease; }
+  .wheel-card__img { transition: rotate 1.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .wheel-card:hover .wheel-card__img { rotate: -150deg; }
+  .btn--secondary:hover { background: #3a8bff; }
+  .btn--primary:hover { background: #9cf06f; }
+}
+.faq__toggle { transition: background 0.2s ease, transform 0.2s ease; }
+
+/* Active deposit: animated gradient border (brand → violet → green) */
+@property --border-angle { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+.deposit--active {
+  border-color: transparent;
+  background:
+    linear-gradient(var(--color-bg-brand-subtle), var(--color-bg-brand-subtle)) padding-box,
+    linear-gradient(var(--color-bg-surface), var(--color-bg-surface)) padding-box,
+    conic-gradient(from var(--border-angle), #1e7aff, #984afe, #8beb5b, #1e7aff) border-box;
+  animation: border-spin 5s linear infinite;
+}
+@keyframes border-spin { to { --border-angle: 360deg; } }
+.deposit__img { animation: float 4s ease-in-out infinite; }
+
+/* Confetti burst on accepted promo code */
+.confetti { position: absolute; left: 50%; top: 30%; width: 0; height: 0; z-index: 2; pointer-events: none; }
+.confetti span {
+  position: absolute; width: 8px; height: 12px; border-radius: 2px; opacity: 0;
+  animation: confetti 1.1s cubic-bezier(0.15, 0.7, 0.3, 1) both;
+}
+@keyframes confetti {
+  0% { opacity: 1; transform: translate(0, 0) rotate(0deg) scale(0.6); }
+  70% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--x), calc(var(--y) + 80px)) rotate(calc(var(--r) + 540deg)) scale(1); }
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }

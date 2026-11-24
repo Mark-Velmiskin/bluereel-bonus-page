@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Alert, Check, Clear, Close } from './Icons'
 import { VALID_PROMO } from './data'
+import { Confetti } from './fx'
 
 type Status = 'idle' | 'loading' | 'error' | 'success'
 
@@ -46,6 +47,7 @@ export function PromoSheet({ onClose, onApplied, onSignUp }: Props) {
     <>
       <div className="scrim" onClick={onClose} />
       <div className="sheet" role="dialog" aria-modal="true" aria-labelledby="promo-title">
+        {status === 'success' && <Confetti />}
         <div className="sheet__grabber" />
         <div>
           <div className="sheet__title-row">
