@@ -302,6 +302,18 @@ img { display: block; }
 }
 .bottom-cta.is-visible { transform: translateY(0); visibility: visible; transition: transform 0.3s ease; }
 
+/* ---------- iOS home indicator (desktop preview only) ---------- */
+.home-indicator { display: none; }
+@media (min-width: 520px) {
+  .home-indicator {
+    display: block; position: absolute; left: 50%; bottom: 8px; z-index: 50;
+    width: 134px; height: 5px; margin-left: -67px; border-radius: 3px; background: #000;
+    pointer-events: none;
+  }
+  .bottom-cta { padding-bottom: 34px; }
+  .sheet { padding-bottom: 34px; }
+}
+
 /* ---------- Toast ---------- */
 .toast {
   position: absolute; left: 16px; right: 16px; top: calc(var(--header-h) + 8px); z-index: 40;

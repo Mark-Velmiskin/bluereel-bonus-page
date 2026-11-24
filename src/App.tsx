@@ -207,6 +207,8 @@ export default function App() {
         <button className="btn btn--primary" onClick={signUp}>Sign up & get your bonus</button>
       </div>
 
+      <span className="home-indicator" aria-hidden />
+
       {toast && (
         <div className="toast" role="status"><Check size={18} color="#55B02A" />{toast}</div>
       )}
