@@ -186,8 +186,15 @@ img { display: block; }
   text-align: center;
 }
 .hero__cta { margin-top: auto; }
-/* From Figma: 375×375 image 32px under the header; headline overlaps its bottom by 71px */
-.hero__img { flex: 0 0 auto; width: 375px; max-width: none; height: 375px; margin: 32px -16px -71px; object-fit: contain; animation: float 5s ease-in-out infinite; }
+.hero {
+  /* Gift size follows the screen height: 375px at 812 (as in Figma), smaller on shorter screens */
+  --hero-img: clamp(170px, calc((var(--device-h) - 421px) / 0.81), 375px);
+}
+.hero__img {
+  flex: 0 0 auto; width: var(--hero-img); max-width: none; height: var(--hero-img);
+  margin: 32px auto calc(var(--hero-img) * -0.19); /* headline overlaps the bottom ~19%, like in Figma (71 of 375) */
+  object-fit: contain; animation: float 5s ease-in-out infinite;
+}
 .hero__title { position: relative; }
 .hero__title .accent { color: var(--color-text-accent); }
 .hero__subtitle { margin-top: 8px; color: var(--color-text-on-brand-muted); }
