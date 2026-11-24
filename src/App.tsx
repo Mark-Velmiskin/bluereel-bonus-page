@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { days, deposits, faq, wheelPrizes } from './data'
-import { ArrowDown, Check, Lock, Minus, Plus, SafariBar, StatusBar } from './Icons'
+import { ArrowDown, Check, Lock, Minus, Plus, StatusBar } from './Icons'
 import { PromoSheet } from './PromoSheet'
 
 export default function App() {
@@ -206,8 +206,6 @@ export default function App() {
       <div className={`bottom-cta ${showBottomCta && !promoOpen ? 'is-visible' : ''}`}>
         <button className="btn btn--primary" onClick={signUp}>Sign up & get your bonus</button>
       </div>
-
-      <SafariBar />
 
       {toast && (
         <div className="toast" role="status"><Check size={18} color="#55B02A" />{toast}</div>

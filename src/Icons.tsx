@@ -1,24 +1,5 @@
 type P = { size?: number; color?: string }
 
-/** iOS Safari bottom bar, shown only in the desktop preview (real phones have their own). */
-export const SafariBar = () => (
-  <div className="safari" aria-hidden>
-    <div className="safari__row">
-      <span className="safari__btn">
-        <svg width="12" height="20" viewBox="0 0 12 20" fill="none"><path d="M10 2 2 10l8 8" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" /></svg>
-      </span>
-      <span className="safari__url">
-        <svg width="18" height="14" viewBox="0 0 18 14" fill="none"><rect x="1" y="1" width="16" height="12" rx="3" stroke="currentColor" strokeWidth="1.6" /><path d="M5 5h8M5 9h5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" /></svg>
-        <span>bluereel.com</span>
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.5 8A5.5 5.5 0 1 1 11.6 3.8M13.5 2.5v3h-3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
-      </span>
-      <span className="safari__btn">
-        <svg width="20" height="4" viewBox="0 0 20 4" fill="currentColor"><circle cx="2" cy="2" r="2" /><circle cx="10" cy="2" r="2" /><circle cx="18" cy="2" r="2" /></svg>
-      </span>
-    </div>
-    <span className="safari__home" />
-  </div>
-)
 
 /** iOS-style status bar, shown only in the desktop preview (real phones have their own). */
 export const StatusBar = () => (
