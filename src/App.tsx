@@ -5,6 +5,9 @@ import { PromoSheet } from './PromoSheet'
 import { CountUp } from './fx'
 import { useCardHover, useReveal } from './hooks'
 
+// Works both on localhost and under the GitHub Pages sub-path
+const img = (name: string) => `${import.meta.env.BASE_URL}img/${name}`
+
 export default function App() {
   const screenRef = useRef<HTMLDivElement>(null)
   const heroCtaRef = useRef<HTMLButtonElement>(null)
@@ -87,7 +90,7 @@ export default function App() {
         <StatusBar />
         <div className="appbar">
           <button className="logo" onClick={() => screenRef.current?.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Bluereel, back to top">
-            <img src="/img/logo-mark.png" alt="" />Bluereel
+            <img src={img('logo-mark.png')} alt="" />Bluereel
           </button>
           {appliedCode ? (
             <span className="applied-chip"><Check size={14} color="#55B02A" />{appliedCode}</span>
@@ -101,7 +104,7 @@ export default function App() {
 
         {/* Hero */}
         <section className="hero">
-          <img className="hero__img" src="/img/hero-gift.png" alt="Gift box with coins" />
+          <img className="hero__img" src={img('hero-gift.png')} alt="Gift box with coins" />
           <h1 className="hero__title t-display" aria-label="Up to $1,500 +75 spins">
             <span className="word" style={{ animationDelay: '0ms' }}>Up</span>{' '}
             <span className="word" style={{ animationDelay: '60ms' }}>to</span>{' '}
@@ -126,7 +129,7 @@ export default function App() {
                 <article key={d.step} className="deposit deposit--active fx-card" data-reveal>
                   <span className="chip chip--white">{d.chip}</span>
                   <p className="deposit__amount t-h2">{d.amount}<br />{d.extra}</p>
-                  <img className="deposit__img" src="/img/deposit-gift.png" alt="" />
+                  <img className="deposit__img" src={img('deposit-gift.png')} alt="" />
                 </article>
               ) : (
                 <article key={d.step} className="deposit fx-card" data-reveal>
@@ -163,7 +166,7 @@ export default function App() {
             </article>
 
             <article className="bonus-card wheel-card fx-card" data-reveal>
-              <img className="wheel-card__img" src="/img/wheel.png" alt="" />
+              <img className="wheel-card__img" src={img('wheel.png')} alt="" />
               <h3 className="t-h2 bonus-card__title--promo wheel-card__title">Spin the wheel,<br />win free spins!</h3>
               <div className="chips">
                 {wheelPrizes.map((p) => <span key={p} className="chip">{p}</span>)}
