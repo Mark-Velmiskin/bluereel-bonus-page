@@ -113,8 +113,16 @@ img { display: block; }
   z-index: 20;
   padding-top: var(--statusbar-h);
   color: var(--color-text-on-brand);
-  transition: background 0.25s ease, box-shadow 0.25s ease;
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+  transition: opacity 0.25s ease, box-shadow 0.25s ease;
 }
+.header::before {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  border-radius: inherit; background: var(--gradient-brand);
+  opacity: 0; transition: opacity 0.25s ease;
+}
+.header.is-solid::before { opacity: 1; }
+.header.is-solid { box-shadow: 0 8px 24px rgba(91, 84, 255, 0.25); }
 .appbar { height: var(--appbar-h); display: flex; align-items: center; justify-content: space-between; padding: 0 16px; }
 .statusbar {
   display: none;
@@ -127,11 +135,10 @@ img { display: block; }
 .statusbar__icons { display: flex; align-items: center; gap: 6px; }
 .statusbar__battery {
   position: relative; display: grid; place-items: center;
-  width: 25px; height: 12px; border-radius: 4px; background: #fff;
+  width: 25px; height: 13px; border-radius: 4px; background: #fff;
 }
 .statusbar__battery::after { content: ''; position: absolute; right: -3px; top: 4px; width: 1.5px; height: 4px; border-radius: 0 1px 1px 0; background: rgba(255,255,255,0.5); }
-.statusbar__battery span { font-size: 9px; line-height: 1; font-weight: 700; color: #1e7aff; }
-.header.is-solid { background: var(--color-bg-brand-start); box-shadow: 0 4px 16px rgba(30, 122, 255, 0.25); }
+.statusbar__battery span { font-size: 10px; line-height: 1; font-weight: 700; color: #000; }
 .logo { display: flex; align-items: center; gap: 8px; color: var(--color-text-on-brand); font-weight: 600; font-size: 18px; line-height: 20px; }
 .logo img { width: 24px; height: 24px; }
 
