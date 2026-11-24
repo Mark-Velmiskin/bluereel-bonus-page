@@ -11,6 +11,7 @@ const img = (name: string) => `${import.meta.env.BASE_URL}img/${name}`
 export default function App() {
   const screenRef = useRef<HTMLDivElement>(null)
   const heroCtaRef = useRef<HTMLButtonElement>(null)
+  const heroRef = useRef<HTMLElement>(null)
   const depositsRef = useRef<HTMLElement>(null)
   const faqRef = useRef<HTMLElement>(null)
   const daysRef = useRef<HTMLDivElement>(null)
@@ -24,26 +25,31 @@ export default function App() {
   useReveal(screenRef)
   useCardHover(screenRef)
 
-  // Header turns solid once the hero image scrolls under it
+  // Hero stays pinned while the content plate slides over it.
+  // On scroll: fade/scale the hero (--p 0→1), make the header solid, and show the sticky CTA
+  // once the plate covers the hero button.
   useEffect(() => {
     const el = screenRef.current
-    if (!el) return
-    const onScroll = () => setSolidHeader(el.scrollTop > 280)
+    const hero = heroRef.current
+    const plate = depositsRef.current
+    const cta = heroCtaRef.current
+    if (!el || !hero || !plate || !cta) return
+    let raf = 0
+    const update = () => {
+      raf = 0
+      const top = el.getBoundingClientRect().top
+      const plateTop = plate.getBoundingClientRect().top - top
+      const p = Math.min(1, Math.max(0, 1 - plateTop / hero.offsetHeight))
+      hero.style.setProperty('--p', p.toFixed(3))
+      setSolidHeader(el.scrollTop > 280)
+      setShowBottomCta(plateTop < cta.getBoundingClientRect().bottom - top)
+    }
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update) }
+    update()
     el.addEventListener('scroll', onScroll, { passive: true })
-    return () => el.removeEventListener('scroll', onScroll)
+    return () => { el.removeEventListener('scroll', onScroll); cancelAnimationFrame(raf) }
   }, [])
 
-  // Sticky CTA appears when the hero CTA leaves the viewport
-  useEffect(() => {
-    const target = heroCtaRef.current
-    if (!target) return
-    const io = new IntersectionObserver(([e]) => setShowBottomCta(!e.isIntersecting), {
-      root: screenRef.current,
-      threshold: 0,
-    })
-    io.observe(target)
-    return () => io.disconnect()
-  }, [])
 
   // Daily strip: when it first comes into view, glide to Day 7 and back to hint that it scrolls.
   // Stops as soon as the user touches the strip.
@@ -103,7 +109,7 @@ export default function App() {
       <div className="screen" ref={screenRef}>
 
         {/* Hero */}
-        <section className="hero">
+        <section className="hero" ref={heroRef}>
           <img className="hero__img" src={img('hero-gift.png')} alt="Gift box with coins" />
           <h1 className="hero__title t-display" aria-label="Up to $1,500 +75 spins">
             <span className="word" style={{ animationDelay: '0ms' }}>Up</span>{' '}
@@ -117,6 +123,7 @@ export default function App() {
           <button ref={heroCtaRef} className="btn btn--primary btn--shine hero__cta rise" style={{ animationDelay: '440ms' }} onClick={signUp}>Sign up & get your bonus</button>
           <button className="hero__more" onClick={() => scrollTo(depositsRef.current)}>See how it works <ArrowDown /></button>        </section>
 
+        <div className="content">
         {/* Welcome offer ladder */}
         <section className="section" ref={depositsRef}>
           <div className="section__head" data-reveal>
@@ -204,6 +211,7 @@ export default function App() {
           </div>
           <div className="footer-space" />
         </section>
+        </div>
       </div>
 
       {/* Sticky sign-up */}

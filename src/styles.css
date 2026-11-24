@@ -443,3 +443,12 @@ button:focus:not(:focus-visible) { outline: none; }
 
 /* Demo promo code hint: tap to fill the field */
 .hint-code { font-weight: 600; color: var(--color-text-brand); text-decoration: underline dotted; text-underline-offset: 2px; }
+
+/* Hero is pinned; the content plates slide up over it */
+.hero { position: sticky; top: 0; z-index: 0; }
+.hero > * { opacity: calc(1 - var(--p, 0) * 0.85); scale: calc(1 - var(--p, 0) * 0.08); translate: 0 calc(var(--p, 0) * -48px); }
+.content {
+  position: relative; z-index: 1;
+  /* transparent behind the first plate's rounded top, #E2E1E8 in the gaps between plates */
+  background: linear-gradient(transparent 40px, var(--color-border-default) 40px);
+}
