@@ -84,12 +84,13 @@ img { display: block; }
   background: var(--color-bg-page);
 }
 @media (min-width: 520px) {
+  html, body, #root { height: auto; min-height: 100%; }
   body { display: grid; place-items: center; padding: 24px; }
   .device {
     position: relative;
     inset: auto;
     width: 375px;
-    height: min(812px, calc(100vh - 48px));
+    height: 812px;
     border-radius: var(--radius-xl);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
   }
@@ -172,16 +173,20 @@ img { display: block; }
 }
 
 /* ---------- Hero ---------- */
+/* Hero fills the whole first screen, so the next section starts below the fold */
 .hero {
-  padding: var(--header-h) 16px 72px;
+  display: flex; flex-direction: column; align-items: center;
+  min-height: calc(100dvh + 24px);
+  padding: var(--header-h) 16px calc(80px + 24px);
   background: var(--gradient-brand);
   color: var(--color-text-on-brand);
   text-align: center;
 }
+@media (min-width: 520px) { .hero { min-height: calc(812px + 24px); } }
+.hero__cta { margin-top: auto; }
 .hero__img { width: 300px; height: 300px; margin: 0 auto -28px; object-fit: contain; animation: float 5s ease-in-out infinite; }
 .hero__title .accent { color: var(--color-text-accent); }
 .hero__subtitle { margin-top: 8px; color: var(--color-text-on-brand-muted); }
-.hero__cta { margin-top: 40px; }
 .hero__more { display: inline-flex; align-items: center; gap: 6px; margin-top: 20px; color: var(--color-text-on-brand-muted); font-size: 14px; }
 .hero__more svg { animation: nudge 1.4s ease-in-out infinite; }
 @keyframes nudge { 0%, 100% { transform: translateY(-2px); } 50% { transform: translateY(3px); } }
