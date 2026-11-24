@@ -88,10 +88,9 @@ img { display: block; }
   .device {
     position: relative;
     inset: auto;
-    width: 390px;
-    height: min(844px, calc(100vh - 48px));
-    border-radius: 48px;
-    box-shadow: 0 0 0 10px #111, 0 30px 80px rgba(0, 0, 0, 0.35);
+    width: 375px;
+    height: min(812px, calc(100vh - 48px));
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
   }
 }
 .screen {
