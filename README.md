@@ -1,5 +1,7 @@
 # Bluereel · Bonus Page (mobile prototype)
 
+**Live:** https://mark-velmiskin.github.io/bluereel-bonus-page/ — open on a phone, or on desktop where it shows at iPhone size.
+
 A working mobile prototype of a casino bonus page for a guest who has not signed up yet. Built from the Figma design (tokens, components and screens).
 
 ## What's inside
@@ -21,6 +23,14 @@ npm run dev
 ```
 
 Open the local URL on your phone (same Wi-Fi, `npm run dev -- --host`) or in a desktop browser — on desktop the page is shown inside a phone frame.
+
+## Deploy
+
+```bash
+npm run deploy
+```
+
+Builds with the `/bluereel-bonus-page/` base path and pushes `dist` to the `gh-pages` branch, which GitHub Pages serves.
 
 ## Notes
 
