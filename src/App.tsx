@@ -95,7 +95,9 @@ export default function App() {
       <header className={`header ${solidHeader ? 'is-solid' : ''}`}>
         <StatusBar />
         <div className="appbar">
-          <div className="logo"><img src="/img/logo-mark.png" alt="" />Bluereel</div>
+          <button className="logo" onClick={() => screenRef.current?.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Bluereel, back to top">
+            <img src="/img/logo-mark.png" alt="" />Bluereel
+          </button>
           {appliedCode ? (
             <span className="applied-chip"><Check size={14} color="#55B02A" />{appliedCode}</span>
           ) : (
