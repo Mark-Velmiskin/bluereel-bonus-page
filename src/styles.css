@@ -440,3 +440,6 @@ img { display: block; }
 
 /* Keep focus rings for keyboard users only */
 button:focus:not(:focus-visible) { outline: none; }
+
+/* Demo promo code hint: tap to fill the field */
+.hint-code { font-weight: 600; color: var(--color-text-brand); text-decoration: underline dotted; text-underline-offset: 2px; }
