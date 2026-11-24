@@ -176,6 +176,8 @@ img { display: block; }
 .hero__subtitle { margin-top: 8px; color: var(--color-text-on-brand-muted); }
 .hero__cta { margin-top: 40px; }
 .hero__more { display: inline-flex; align-items: center; gap: 6px; margin-top: 20px; color: var(--color-text-on-brand-muted); font-size: 14px; }
+.hero__more svg { animation: nudge 1.4s ease-in-out infinite; }
+@keyframes nudge { 0%, 100% { transform: translateY(-2px); } 50% { transform: translateY(3px); } }
 .hero__url {
   display: block; width: fit-content; margin: 20px auto 0; padding: 6px 16px;
   border: 1px solid rgba(255, 255, 255, 0.4); border-radius: var(--radius-full);
