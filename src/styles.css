@@ -448,3 +448,6 @@ img { display: block; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* Keep focus rings for keyboard users only */
+button:focus:not(:focus-visible) { outline: none; }

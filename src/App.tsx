@@ -200,7 +200,7 @@ export default function App() {
               )
             })}
             <div className="faq__item">
-              <button className="faq__q" onClick={() => setToast('Full bonus terms open here')}>
+              <button className="faq__q">
                 <span>Read full bonus terms</span>
                 <span className="faq__toggle"><Plus /></span>
               </button>
