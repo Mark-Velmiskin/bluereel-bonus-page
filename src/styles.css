@@ -188,7 +188,7 @@ img { display: block; }
 .hero__cta { margin-top: auto; }
 .hero {
   /* Gift size follows the screen height: 375px at 812 (as in Figma), smaller on shorter screens */
-  --hero-img: clamp(170px, calc((var(--device-h) - 413px) / 0.81), 375px);
+  --hero-img: clamp(170px, calc((var(--device-h) - 445px) / 0.81), 375px);
 }
 .hero__img {
   flex: 0 0 auto; width: var(--hero-img); max-width: none; height: var(--hero-img);
