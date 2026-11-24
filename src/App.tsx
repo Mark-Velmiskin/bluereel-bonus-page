@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { days, deposits, faq, wheelPrizes } from './data'
-import { ArrowDown, Check, Lock, Minus, Plus } from './Icons'
+import { ArrowDown, Check, Lock, Minus, Plus, StatusBar } from './Icons'
 import { PromoSheet } from './PromoSheet'
 
 export default function App() {
@@ -52,16 +52,20 @@ export default function App() {
 
   return (
     <div className="device">
-      <div className="screen" ref={screenRef}>
-        {/* Header */}
-        <header className={`header ${solidHeader ? 'is-solid' : ''}`}>
+      {/* Header: iOS status bar (desktop preview only) + app bar */}
+      <header className={`header ${solidHeader ? 'is-solid' : ''}`}>
+        <StatusBar />
+        <div className="appbar">
           <div className="logo"><img src="/img/logo-mark.png" alt="" />Bluereel</div>
           {appliedCode ? (
             <span className="applied-chip"><Check size={14} color="#55B02A" />{appliedCode}</span>
           ) : (
             <button className="btn-glass" onClick={() => setPromoOpen(true)}>Promo code?</button>
           )}
-        </header>
+        </div>
+      </header>
+
+      <div className="screen" ref={screenRef}>
 
         {/* Hero */}
         <section className="hero">

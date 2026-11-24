@@ -104,16 +104,33 @@ img { display: block; }
 .screen::-webkit-scrollbar { display: none; }
 
 /* ---------- Header ---------- */
+:root { --statusbar-h: env(safe-area-inset-top); --appbar-h: 60px; --header-h: calc(var(--statusbar-h) + var(--appbar-h)); }
+@media (min-width: 520px) { :root { --statusbar-h: 44px; } }
+
 .header {
-  position: sticky;
-  top: 0;
+  position: absolute;
+  top: 0; left: 0; right: 0;
   z-index: 20;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: calc(14px + env(safe-area-inset-top)) 16px 14px;
+  padding-top: var(--statusbar-h);
+  color: var(--color-text-on-brand);
   transition: background 0.25s ease, box-shadow 0.25s ease;
 }
+.appbar { height: var(--appbar-h); display: flex; align-items: center; justify-content: space-between; padding: 0 16px; }
+.statusbar {
+  display: none;
+  position: absolute; top: 0; left: 0; right: 0; height: 44px;
+  align-items: center; justify-content: space-between;
+  padding: 0 26px 0 34px;
+}
+@media (min-width: 520px) { .statusbar { display: flex; } }
+.statusbar__time { font-size: 15px; line-height: 20px; font-weight: 600; letter-spacing: -0.2px; }
+.statusbar__icons { display: flex; align-items: center; gap: 6px; }
+.statusbar__battery {
+  position: relative; display: grid; place-items: center;
+  width: 25px; height: 12px; border-radius: 4px; background: #fff;
+}
+.statusbar__battery::after { content: ''; position: absolute; right: -3px; top: 4px; width: 1.5px; height: 4px; border-radius: 0 1px 1px 0; background: rgba(255,255,255,0.5); }
+.statusbar__battery span { font-size: 9px; line-height: 1; font-weight: 700; color: #1e7aff; }
 .header.is-solid { background: var(--color-bg-brand-start); box-shadow: 0 4px 16px rgba(30, 122, 255, 0.25); }
 .logo { display: flex; align-items: center; gap: 8px; color: var(--color-text-on-brand); font-weight: 600; font-size: 18px; line-height: 20px; }
 .logo img { width: 24px; height: 24px; }
@@ -149,8 +166,7 @@ img { display: block; }
 
 /* ---------- Hero ---------- */
 .hero {
-  margin-top: calc(-52px - env(safe-area-inset-top));
-  padding: calc(52px + env(safe-area-inset-top)) 16px 72px;
+  padding: var(--header-h) 16px 72px;
   background: var(--gradient-brand);
   color: var(--color-text-on-brand);
   text-align: center;
@@ -273,7 +289,7 @@ img { display: block; }
 
 /* ---------- Toast ---------- */
 .toast {
-  position: absolute; left: 16px; right: 16px; top: calc(70px + env(safe-area-inset-top)); z-index: 40;
+  position: absolute; left: 16px; right: 16px; top: calc(var(--header-h) + 8px); z-index: 40;
   display: flex; align-items: center; gap: 8px;
   padding: 12px 16px; border-radius: var(--radius-md);
   background: var(--color-bg-surface); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
