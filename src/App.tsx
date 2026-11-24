@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { days, deposits, faq, wheelPrizes } from './data'
-import { ArrowDown, Check, Lock, Minus, Plus, StatusBar } from './Icons'
+import { ArrowDown, Check, Lock, Minus, Plus, SafariBar, StatusBar } from './Icons'
 import { PromoSheet } from './PromoSheet'
 
 export default function App() {
@@ -111,9 +111,7 @@ export default function App() {
           </h1>
           <p className="hero__subtitle t-body-md">A bonus on each of your first 4 deposits</p>
           <button ref={heroCtaRef} className="btn btn--primary hero__cta" onClick={signUp}>Sign up & get your bonus</button>
-          <button className="hero__more" onClick={() => scrollTo(depositsRef.current)}>See how it works <ArrowDown /></button>
-          <span className="hero__url">bluereel.com</span>
-        </section>
+          <button className="hero__more" onClick={() => scrollTo(depositsRef.current)}>See how it works <ArrowDown /></button>        </section>
 
         {/* Welcome offer ladder */}
         <section className="section" ref={depositsRef}>
@@ -208,6 +206,8 @@ export default function App() {
       <div className={`bottom-cta ${showBottomCta && !promoOpen ? 'is-visible' : ''}`}>
         <button className="btn btn--primary" onClick={signUp}>Sign up & get your bonus</button>
       </div>
+
+      <SafariBar />
 
       {toast && (
         <div className="toast" role="status"><Check size={18} color="#55B02A" />{toast}</div>
