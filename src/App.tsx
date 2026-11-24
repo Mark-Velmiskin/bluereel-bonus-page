@@ -17,7 +17,6 @@ export default function App() {
   const [promoOpen, setPromoOpen] = useState(false)
   const [appliedCode, setAppliedCode] = useState<string | null>(null)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
-  const [toast, setToast] = useState<string | null>(null)
 
   useReveal(screenRef)
   useCardHover(screenRef)
@@ -76,16 +75,8 @@ export default function App() {
     return () => { stop(); io.disconnect() }
   }, [])
 
-  useEffect(() => {
-    if (!toast) return
-    const t = setTimeout(() => setToast(null), 2800)
-    return () => clearTimeout(t)
-  }, [toast])
-
-  const signUp = useCallback(() => {
-    setPromoOpen(false)
-    setToast(appliedCode ? `Sign-up opens here · ${appliedCode} will be applied` : 'Sign-up opens here (out of scope for this prototype)')
-  }, [appliedCode])
+  // Sign-up itself is out of scope for this prototype: the buttons only close the promo sheet
+  const signUp = useCallback(() => setPromoOpen(false), [])
 
   const scrollTo = (el: HTMLElement | null) => el?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 
@@ -218,10 +209,6 @@ export default function App() {
       </div>
 
       <span className="home-indicator" aria-hidden />
-
-      {toast && (
-        <div className="toast" role="status"><Check size={18} color="#55B02A" />{toast}</div>
-      )}
 
       {promoOpen && (
         <PromoSheet
