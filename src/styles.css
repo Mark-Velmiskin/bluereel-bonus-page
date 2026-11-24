@@ -234,7 +234,8 @@ img { display: block; }
 .deposit__amount { margin-top: 16px; }
 .deposit__status { display: flex; align-items: center; gap: 4px; color: var(--color-text-tertiary); }
 .deposit--active {
-  padding: 22px; background: linear-gradient(var(--color-bg-brand-subtle), var(--color-bg-brand-subtle)), var(--color-bg-surface);
+  /* Figma: 2px inside stroke border/brand, fill bg/brand-subtle, 20px padding from the outer edge */
+  padding: 18px; background: var(--color-bg-brand-subtle);
   border: 2px solid var(--color-border-brand);
 }
 .deposit--active .deposit__amount { color: var(--color-text-brand); margin-top: 12px; }
@@ -420,18 +421,6 @@ img { display: block; }
 }
 .faq__toggle { transition: background 0.2s ease, transform 0.2s ease; }
 
-/* Active deposit: animated gradient border (brand → violet → green) */
-@property --border-angle { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
-.deposit--active {
-  border-color: transparent;
-  background:
-    linear-gradient(var(--color-bg-brand-subtle), var(--color-bg-brand-subtle)) padding-box,
-    linear-gradient(var(--color-bg-surface), var(--color-bg-surface)) padding-box,
-    conic-gradient(from var(--border-angle), #1e7aff, #984afe, #8beb5b, #1e7aff) border-box;
-  animation: border-spin 5s linear infinite;
-}
-@keyframes border-spin { to { --border-angle: 360deg; } }
-.deposit__img { animation: float 4s ease-in-out infinite; }
 
 /* Confetti burst on accepted promo code */
 .confetti { position: absolute; left: 50%; top: 30%; width: 0; height: 0; z-index: 2; pointer-events: none; }
