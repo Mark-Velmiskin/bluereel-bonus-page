@@ -239,7 +239,7 @@ img { display: block; }
   border: 2px solid var(--color-border-brand);
 }
 .deposit--active .deposit__amount { color: var(--color-text-brand); margin-top: 12px; }
-.deposit__img { position: absolute; right: 8px; top: 12px; width: 104px; height: 104px; object-fit: contain; }
+.deposit__img { position: absolute; right: 8px; top: 50%; translate: 0 -50%; width: 104px; height: 104px; object-fit: contain; }
 .terms-line { margin-top: 24px; text-align: center; color: var(--color-text-tertiary); font-size: 12px; line-height: 16px; }
 .terms-line a { color: var(--color-text-primary); font-weight: 500; text-decoration: underline; cursor: pointer; }
 
